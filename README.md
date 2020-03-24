@@ -1,6 +1,6 @@
 # gCollection
 a tool to automate the generation of the workshop.lua for GMOD servers.
-***
+
 ## Why tho?
 Because, I thought I need it for my gmod server,but turns out there's already an online solution that works and looks better then my version. I didn't want all of my time go to waste so I decided to upload it to github is for some reason someone wants to make their own or base their work off my spagetti code.
 
