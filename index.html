@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <title>gCollection</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    </head>  
+
+    <body>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand">gCollection</a>
+            
+              <input id="collectID" class="form-control mr-sm-2" type="text" placeholder="colleciton id" aria-label="colleciton id">
+            
+            
+              <button id="getCollect" class="btn">Search</button>
+           
+          </nav>
+      
+        <hr>
+
+        <pre id="colData"></pre>
+        <script>
+            
+                document.getElementById('getCollect').addEventListener('click', function(event) {
+                    console.log("pressed");
+                    var parsedData;
+                    var emptData
+            	    var homeURL = "http://localhost:8080/getCollectionDet/?"
+                   
+                    var collInput = document.getElementById('collectID').value;
+	                var newURL = homeURL+"id="+collInput;
+	                var req = new XMLHttpRequest();
+            	    req.open("GET", newURL, true);
+            	    req.addEventListener('load', function(){
+		                if(req.status>= 200 && req.status<400){
+		                    var response = JSON.parse(req.responseText);
+                            console.log(JSON.parse(req.responseText));
+                            
+                            var preContrainer = document.getElementById("colData");
+                              preContrainer.innerHTML = " ";
+                                parsedData = "";
+
+                            for (var i = 0; i < response.response.collectiondetails[0].children.length; i++){
+                                emptData = null;
+                                emptData = "resource.AddWorkshop( " + response.response.collectiondetails[0].children[i].publishedfileid + ")\n";
+                                 parsedData += emptData;
+                                };
+                             preContrainer.innerHTML = parsedData;
+		                }
+		                else {
+			                console.log("Error in network request: " + request.statusText);
+		                 }
+	                });
+                 req.send(null);
+                    
+              
+               
+                 });
+                
+        </script>
+    </body>
+
+</html>
